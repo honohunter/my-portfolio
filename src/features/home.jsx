@@ -1,9 +1,12 @@
 import React from 'react';
+import clsx from 'clsx';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { useStaticQuery, graphql } from 'gatsby';
 import Particles from 'react-tsparticles';
 import Typed from 'react-typed';
-import { Avatar, Container, Hidden, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Button, Container, Hidden, Link, makeStyles, Typography } from '@material-ui/core';
+
+import attachedFile from '../assets/attachment/CV.pdf';
 
 const option = {
   autoPlay: true,
@@ -198,6 +201,15 @@ const useStyles = makeStyles(theme => ({
     borderColor: theme.palette.primary.contrastText,
     marginBottom: theme.spacing(2),
   },
+  button: {
+    color: '#fff',
+    border: '2px solid #fff',
+    borderRadius: 50,
+    fontWeight: 600,
+    fontSize: 18,
+    marginTop: theme.spacing(3),
+    width: 200,
+  },
 }));
 
 const InjectImagesToOption = imagesList => {
@@ -211,9 +223,9 @@ const InjectImagesToOption = imagesList => {
 export default function Index() {
   const classes = useStyles();
 
-  const { imagesList, profilePic } = useStaticQuery(graphql`
+  const { logosList, profilePic } = useStaticQuery(graphql`
     {
-      imagesList: allFile(filter: { extension: { eq: "png" }, relativeDirectory: { eq: "particles" } }) {
+      logosList: allFile(filter: { extension: { eq: "png" }, relativeDirectory: { eq: "particles" } }) {
         edges {
           node {
             childImageSharp {
@@ -230,24 +242,20 @@ export default function Index() {
     }
   `);
 
-  InjectImagesToOption(imagesList);
+  InjectImagesToOption(logosList);
 
   return (
     <>
       <Particles options={option} className={classes.particles} />
-      <div className={classes.root}>
+      <div className={clsx(classes.root, 'animate__animated', 'animate__fadeIn', 'animate__delay-1s')}>
         <Container maxWidth="xl" className={classes.container}>
           <Avatar className={classes.avatar}>
             <GatsbyImage alt="profile picture" image={getImage(profilePic)} />
           </Avatar>
           <Typography variant="h1" align="center" gutterBottom>
-            Hello, I&#39;m{' '}
-            <Hidden mdUp>
-              <br />
-            </Hidden>{' '}
-            Alaa Eddine Bouasla
+            Hello, I&#39;m Alaa Eddine Bouasla
           </Typography>
-          <Typography variant="h2" align="center">
+          <Typography variant="h2" align="center" gutterBottom>
             <Typed
               strings={['Web Application Developer', 'Frontend Web Developer']}
               typeSpeed={80}
@@ -256,6 +264,16 @@ export default function Index() {
               loop
             />
           </Typography>
+          <Button
+            component={Link}
+            href={attachedFile}
+            target="_blank"
+            variant="outlined"
+            size="large"
+            className={classes.button}
+          >
+            Download CV
+          </Button>
         </Container>
       </div>
     </>

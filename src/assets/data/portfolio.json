@@ -1,0 +1,181 @@
+[
+    {
+        "title": "IntelliTrade",
+        "tags": [
+            "Website",
+            "Responsive",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 96,
+            "A11Y": 94,
+            "BP": 100,
+            "SEO": 100
+        },
+        "technologies": [
+            "gatsby",
+            "graphQl",
+            "material-ui"
+        ],
+        "link": "https://demo-int.netlify.app/"
+    },
+    {
+        "title": "Speak2Leads",
+        "tags": [
+            "Dashboard",
+            "Responsive",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 78,
+            "A11Y": 82,
+            "BP": 100,
+            "SEO": 80
+        },
+        "technologies": [
+            "gatsby",
+            "graphQl",
+            "material-ui"
+        ],
+        "link": "https://6093df017ccffb00079ae66e--speak2leads.netlify.app/me/overview/"
+    },
+    {
+        "title": "Classdrift",
+        "tags": [
+            "Dashboard",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 100,
+            "A11Y": 81,
+            "BP": 100,
+            "SEO": 80
+        },
+        "technologies": [
+            "nextjs",
+            "material-ui"
+        ],
+        "link": "https://classdrift.herokuapp.com/dashboard/home"
+    },
+    {
+        "title": "FamGuru",
+        "tags": [
+            "Website",
+            "Responsive",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 100,
+            "A11Y": 77,
+            "BP": 100,
+            "SEO": 100
+        },
+        "technologies": [
+            "gatsby",
+            "graphQl",
+            "material-ui"
+        ],
+        "link": "https://famguru-demo.netlify.app/"
+    },
+    {
+        "title": "Univertop",
+        "tags": [
+            "Website",
+            "Responsive",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 97,
+            "A11Y": 91,
+            "BP": 100,
+            "SEO": 100
+        },
+        "technologies": [
+            "gatsby",
+            "graphQl",
+            "material-ui",
+            "netlify",
+            "contentful"
+        ],
+        "link": "https://univertop.netlify.app/"
+    },
+    {
+        "title": "Frank Dropshipping",
+        "tags": [
+            "Dashboard",
+            "Responsive",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 98,
+            "A11Y": 86,
+            "BP": 93,
+            "SEO": 90
+        },
+        "technologies": [
+            "nextjs",
+            "material-ui"
+        ],
+        "link": "https://frank-dropshipping.netlify.app/overview"
+    },
+    {
+        "title": "Locker Room",
+        "tags": [
+            "Website",
+            "Responsive",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 93,
+            "A11Y": 93,
+            "BP": 100,
+            "SEO": 90
+        },
+        "technologies": [
+            "gatsby",
+            "graphQl",
+            "material-ui"
+        ],
+        "link": "https://lockerroom.gtsb.io/"
+    },
+    {
+        "title": "La Grand Ourse",
+        "tags": [
+            "Website",
+            "Responsive",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 99,
+            "A11Y": 88,
+            "BP": 100,
+            "SEO": 90
+        },
+        "technologies": [
+            "gatsby",
+            "graphQl",
+            "material-ui"
+        ],
+        "link": "https://lagrandeoursemaster.gtsb.io/"
+    },
+    {
+        "title": "Enhance by Diffbot",
+        "tags": [
+            "Website",
+            "Responsive",
+            "Frontend"
+        ],
+        "lightHouse": {
+            "Performance": 92,
+            "A11Y": 91,
+            "BP": 100,
+            "SEO": 90
+        },
+        "technologies": [
+            "gatsby",
+            "graphQl",
+            "material-ui"
+        ],
+        "link": "https://lagrandeoursemaster.gtsb.io/"
+    }
+]

@@ -2,11 +2,11 @@ import React from 'react';
 
 import Seo from '../components/seo';
 
-import Home from '../features/home';
+import Portfolio from '../features/portfolio';
 
 const PortfolioPage = () => (
   <>
-    {/* <Home /> */}
+    <Portfolio />
   </>
 );
 

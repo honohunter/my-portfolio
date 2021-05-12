@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
     overflow: 'auto',
     display: 'flex',
+
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },

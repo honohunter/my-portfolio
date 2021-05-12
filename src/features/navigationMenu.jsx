@@ -24,19 +24,22 @@ const useStyles = makeStyles(theme => ({
   navigationMenu: {
     padding: theme.spacing(3),
     display: 'flex',
+    position: 'fixed',
     [theme.breakpoints.up('md')]: {
       width: 180,
-      marginLeft: -180,
+      // marginLeft: -180,
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'flex-end',
       height: '100%',
+      top: 0,
+      right: 16,
       '& > *:not(:last-child)': {
         paddingBottom: theme.spacing(2),
       },
     },
     [theme.breakpoints.down('sm')]: {
-      // minWidth: 375,
+      bottom: 0,
       width: '100%',
       justifyContent: 'center',
       '& > *:not(:last-child)': {
@@ -52,7 +55,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   active: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.main,
   },
   bottomNavigation: {
     position: 'fixed',
@@ -115,9 +118,7 @@ const EnhancedFab = ({ label, to, ...props }) => {
     <div className={classes.container}>
       {hover && !matchMobileScreen && (
         <div className={clsx(classes.label, 'animate__animated', 'animate__fadeInUp animate__faster')}>
-          <Typography color="textSecondary" variant="h6">
-            {label}
-          </Typography>
+          <Typography variant="h6">{label}</Typography>
         </div>
       )}
 
@@ -129,19 +130,20 @@ const EnhancedFab = ({ label, to, ...props }) => {
         direction={transitionDirection}
         to={to}
         replace
-        bg={theme.palette.primary.dark}
+        bg={theme.palette.primary.main}
         variant="round"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className={clsx(match && classes.active)}
         disableRipple={Boolean(match)}
-        size="small"
+        size={matchMobileScreen ? 'small' : 'large'}
+        color="default"
       />
     </div>
   );
 };
 
-const NavigationMenu = () => {
+export default function NavigationMenu() {
   const classes = useStyles();
 
   return (
@@ -164,17 +166,5 @@ const NavigationMenu = () => {
       </EnhancedFab>
     </div>
     // {/* </SimpleBar> */}
-  );
-};
-
-export default function ResponsiveNavigationMenu() {
-  const matches = useMediaQuery(theme => theme.breakpoints.down('sm'));
-
-  return matches ? (
-    <SimpleBar>
-      <NavigationMenu />
-    </SimpleBar>
-  ) : (
-    <NavigationMenu />
   );
 }
