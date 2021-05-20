@@ -88,7 +88,12 @@ export default function Portfolio() {
   React.useEffect(() => {
     if (ref) {
       setTimeout(() => {
-        wrapGrid(ref.current, { duration: 500 });
+        wrapGrid(ref.current, {
+          duration: 500,
+          onStart: animatingElementList => {
+            console.log('fdf');
+          },
+        });
       }, 100);
     }
   }, [ref]);
@@ -125,7 +130,6 @@ export default function Portfolio() {
                   />
                 </Grid>
               ))}
-              
             </Grid>
           </div>
 
@@ -147,7 +151,7 @@ export default function Portfolio() {
                     </Grid>
                   ),
               )}
-              {portfolioList.map(
+              {/* {portfolioList.map(
                 (ele, index) =>
                   (tagsFilter.some(item => ele.technologies.includes(item) || ele.tags.includes(item)) ||
                     tagsFilter.length === 0) && (
@@ -162,7 +166,7 @@ export default function Portfolio() {
                       />
                     </Grid>
                   ),
-              )}
+              )} */}
             </Grid>
           </div>
         </Container>

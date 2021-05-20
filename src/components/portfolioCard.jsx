@@ -170,8 +170,6 @@ export default function PortfolioCard({ img, title, tags, order, lightHouse, tec
 
   const classes = useStyles({ order, isHovered });
 
-  console.log(inView);
-
   const { logosList } = useStaticQuery(graphql`
     {
       logosList: allFile(filter: { extension: { eq: "png" }, relativeDirectory: { eq: "particles" } }) {
