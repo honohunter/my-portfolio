@@ -1,11 +1,13 @@
-/* eslint-disable consistent-return */
 import React from 'react';
 
 export default function useHover() {
-  const [value, setValue] = React.useState(false);
+  const [isHovered, setHovered] = React.useState(false);
+  const [isHoveredOnce, setHoveredOnce] = React.useState(false);
   const ref = React.useRef(null);
-  const handleMouseOver = () => setValue(true);
-  const handleMouseOut = () => setValue(false);
+
+  const handleMouseOver = () => setHovered(true);
+  const handleMouseOut = () => setHovered(false);
+
   React.useEffect(
     () => {
       const node = ref.current;
@@ -18,7 +20,12 @@ export default function useHover() {
         };
       }
     },
-    [ref.current], // Recall only if ref changes
+    [], // Recall only if ref changes
   );
-  return [ref, value];
+
+  React.useEffect(() => {
+    if (isHovered) setHoveredOnce(true);
+  }, [isHovered]);
+
+  return { ref, isHovered, isHoveredOnce };
 }

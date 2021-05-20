@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import SimpleBar from 'simplebar-react';
+import { wrapGrid } from 'animate-css-grid';
 import { useStaticQuery, graphql } from 'gatsby';
-import { makeStyles, Container, Chip, Typography, Grid } from '@material-ui/core';
+import { makeStyles, Container, Chip, Typography, Grid, ButtonBase } from '@material-ui/core';
 
 import Card from '../components/portfolioCard';
 import { filterQueryByName } from '../utils';
@@ -26,12 +27,36 @@ const useStyles = makeStyles(theme => ({
     width: 100,
   },
   gallery: {
-    overflow: 'hidden',
+    paddingTop: theme.spacing(3),
+    '& > *': {
+      margin: 'auto',
+    },
+  },
+  chipTag: {
+    textTransform: 'capitalize',
+    '& .MuiChip-clickable:hover, .MuiChip-clickable:focus': {
+      backgroundColor: theme.palette.primary.main,
+    },
   },
 }));
 
+const getUniqueElements = element => {
+  const elements = [];
+  portfolioList.forEach(ele => {
+    elements.push(...ele[element]);
+  });
+  return [...new Set(elements)];
+};
+
 export default function Portfolio() {
   const classes = useStyles();
+  const ref = React.useRef();
+  const [tagsFilter, setTagsFilter] = React.useState([]);
+
+  // const uniqueTags = getUniqueElements('tags');
+  const uniqueTags = [];
+  const uniqueTech = getUniqueElements('technologies');
+  // const uniqueTech = [];
 
   const { images } = useStaticQuery(graphql`
     {
@@ -48,6 +73,26 @@ export default function Portfolio() {
     }
   `);
 
+  const handleFilter = event => {
+    if (event.target.textContent === 'All') {
+      setTagsFilter([]);
+      return;
+    }
+    if (tagsFilter.includes(event.target.textContent)) {
+      setTagsFilter([...tagsFilter.filter(item => item !== event.target.textContent)]);
+      return;
+    }
+    setTagsFilter([...tagsFilter, event.target.textContent]);
+  };
+
+  React.useEffect(() => {
+    if (ref) {
+      setTimeout(() => {
+        wrapGrid(ref.current, { duration: 500 });
+      }, 100);
+    }
+  }, [ref]);
+
   return (
     <SimpleBar style={{ height: '100%' }}>
       <div className={clsx(classes.root)}>
@@ -59,21 +104,65 @@ export default function Portfolio() {
               Pixel perfect websites and dashboards, made based on provided designs with React.js recent technologies
             </Typography>
           </div>
-          {/* <div>test</div> */}
-          <div className={classes.gallery}>
-            <Grid container spacing={3}>
-              {portfolioList.map((ele, index) => (
-                <Grid key={ele.title} item xs="auto" sm={6} lg={4}>
-                  <Card
-                    img={filterQueryByName(images, ele.title)}
-                    title={ele.title}
-                    tags={ele.tags}
-                    lightHouse={ele.lightHouse}
-                    technologies={ele.technologies}
-                    order={index}
+          <div>
+            <Grid container spacing={1} justify="center">
+              <Grid item>
+                <Chip
+                  clickable
+                  color={tagsFilter.length === 0 ? 'primary' : 'default'}
+                  label="All"
+                  onClick={handleFilter}
+                />
+              </Grid>
+              {[...uniqueTags, ...uniqueTech].map(ele => (
+                <Grid key={ele} item>
+                  <Chip
+                    clickable
+                    color={tagsFilter.includes(ele) ? 'primary' : 'default'}
+                    label={ele}
+                    onClick={handleFilter}
+                    className={classes.chipTag}
                   />
                 </Grid>
               ))}
+              
+            </Grid>
+          </div>
+
+          <div className={classes.gallery}>
+            <Grid container spacing={3} ref={ref}>
+              {portfolioList.map(
+                (ele, index) =>
+                  (tagsFilter.some(item => ele.technologies.includes(item) || ele.tags.includes(item)) ||
+                    tagsFilter.length === 0) && (
+                    <Grid item xs="auto" key={ele.title}>
+                      <Card
+                        img={filterQueryByName(images, ele.title)}
+                        title={ele.title}
+                        tags={ele.tags}
+                        lightHouse={ele.lightHouse}
+                        technologies={ele.technologies}
+                        order={index}
+                      />
+                    </Grid>
+                  ),
+              )}
+              {portfolioList.map(
+                (ele, index) =>
+                  (tagsFilter.some(item => ele.technologies.includes(item) || ele.tags.includes(item)) ||
+                    tagsFilter.length === 0) && (
+                    <Grid item xs="auto" key={ele.title}>
+                      <Card
+                        img={filterQueryByName(images, ele.title)}
+                        title={ele.title}
+                        tags={ele.tags}
+                        lightHouse={ele.lightHouse}
+                        technologies={ele.technologies}
+                        order={index}
+                      />
+                    </Grid>
+                  ),
+              )}
             </Grid>
           </div>
         </Container>

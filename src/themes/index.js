@@ -67,6 +67,11 @@ const theme = createMuiTheme({
         backgroundColor: '#282c34',
         color: '#fff',
       },
+      clickable: {
+        '&:hover, &:focus': {
+          backgroundColor: 'none',
+        },
+      },
     },
     MuiFab: {
       root: {
@@ -74,6 +79,7 @@ const theme = createMuiTheme({
         backgroundColor: '#282c34',
         '&:hover': {
           backgroundColor: '#228be6',
+          '@media (hover: none)': false,
         },
       },
     },

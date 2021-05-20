@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import mergeRefs from 'react-merge-refs';
 import { useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { useInView } from 'react-intersection-observer';
 import { makeStyles, Typography, ButtonBase, Grid, Chip } from '@material-ui/core';
 import { Doughnut } from 'react-chartjs-2';
 
 import useHover from '../hooks/useHover';
+import useAnimation from '../hooks/useAnimation';
+
 import { filterQueryByName } from '../utils';
 
 const useStyles = makeStyles(theme => ({
   root: ({ order }) => ({
-    width: '100%',
+    // width: '100%',
     height: 270,
+    width: 360,
     backgroundColor: theme.palette.grey[900],
     borderRadius: 5,
     overflow: 'hidden',
@@ -93,17 +98,20 @@ const options = {
 const DoughnutChart = ({ active, value, label }) => {
   const classes = useStyles();
   const ref = React.useRef();
-  const data = {
-    labels: ['0', '1'],
-    datasets: [
-      {
-        data: [value, 100 - value],
-        borderColor: ['#228be6', 'transparent'],
-        backgroundColor: ['rgba(34,139,230,0.5)', 'transparent'],
-        borderRadius: 100,
-      },
-    ],
-  };
+  const data = React.useMemo(
+    () => ({
+      labels: ['0', '1'],
+      datasets: [
+        {
+          data: [value, 100 - value],
+          borderColor: ['#228be6', 'transparent'],
+          backgroundColor: ['rgba(34,139,230,0.5)', 'transparent'],
+          borderRadius: 100,
+        },
+      ],
+    }),
+    [value],
+  );
 
   const toggleAnimation = React.useCallback(() => {
     const chart = ref.current;
@@ -135,14 +143,34 @@ const DoughnutChart = ({ active, value, label }) => {
         </div>
       </div>
     ),
-    [classes.chartLabel, classes.chartWrapper, label, value],
+    [classes.chartContainer, classes.chartLabel, classes.chartWrapper, data, label, value],
   );
 };
 
 export default function PortfolioCard({ img, title, tags, order, lightHouse, technologies }) {
-  const [hoverRef, isHovered] = useHover();
-  const [isHoveredOnce, setHoveredOnce] = React.useState(false);
+  const { ref: hoverRef, isHovered, isHoveredOnce } = useHover();
+  const { ref: viewRef, inView } = useInView({
+    threshold: 0.1,
+    initialInView: true,
+  });
+  // const { ref: inAnimationRef } = useAnimation({
+  //   animation: inView ? 'fadeInUp' : 'fadeOutDown',
+  //   duration: 500,
+  //   delay: order * 100,
+  //   active: true,
+  // });
+  // const { ref: outAnimationRef } = useAnimation({
+  //   animation: 'fadeOutDown',
+  //   duration: 500,
+  //   delay: order * 100,
+  //   active: !inView,
+  // });
+
+  const ref = React.useMemo(() => mergeRefs([hoverRef, viewRef]), [hoverRef, viewRef]);
+
   const classes = useStyles({ order, isHovered });
+
+  console.log(inView);
 
   const { logosList } = useStaticQuery(graphql`
     {
@@ -159,92 +187,88 @@ export default function PortfolioCard({ img, title, tags, order, lightHouse, tec
     }
   `);
 
-  React.useEffect(() => {
-    if (isHovered) {
-      setHoveredOnce(true);
-    }
-  }, [isHovered]);
-
   return (
-    <ButtonBase
-      className={clsx(
-        classes.root,
-        'animate__animated',
-        'animate__faster',
-        'animate__delay-1s',
-        'animate__fadeInUpBig',
-      )}
-      ref={hoverRef}
-    >
-      {img && <GatsbyImage alt="picture" image={getImage(img)} className={clsx(classes.hoverImage)} />}
-      {isHoveredOnce && (
-        <div
-          className={clsx(
-            classes.container,
-            'animate__animated',
-            'animate__fast',
-            isHovered ? 'animate__fadeIn' : 'animate__fadeOut',
-          )}
-        >
+    <div ref={ref}>
+      <ButtonBase
+        className={clsx(
+          classes.root,
+          'animate__animated',
+          'animate__faster',
+          'animate__fadeInUp',
+          !inView && 'animate__fadeOutDown',
+          'animate__delay-1s',
+        )}
+      >
+        {img && <GatsbyImage alt="picture" image={getImage(img)} className={clsx(classes.hoverImage)} />}
+        {isHoveredOnce && (
           <div
             className={clsx(
-              // classes.header,
-              'animate__animated',
-              'animate__faster',
-              isHovered ? 'animate__fadeInDown' : 'animate__fadeOutUp',
-            )}
-          >
-            <Typography variant="h5" gutterBottom>
-              {title}
-            </Typography>
-          </div>
-          <div
-            className={clsx(
-              classes.header,
-              'animate__animated',
-              'animate__faster',
-              isHovered ? 'animate__fadeInDown' : 'animate__fadeOutUp',
-            )}
-          >
-            {tags.map(tag => (
-              <Chip key={tag} color="primary" label={tag} className={classes.tag} />
-            ))}
-          </div>
-          <div
-            className={clsx(
-              'animate__animated',
-              'animate__faster',
-              isHovered ? 'animate__fadeInUp' : 'animate__fadeOutDown',
-            )}
-          >
-            <Grid container justify="center" wrap="nowrap" spacing={2}>
-              {technologies.map(tech => (
-                <Grid key={tech} item>
-                  <GatsbyImage alt="logo" image={getImage(filterQueryByName(logosList, tech))} />
-                </Grid>
-              ))}
-            </Grid>
-          </div>
-
-          <div
-            className={clsx(
-              classes.main,
+              classes.container,
               'animate__animated',
               'animate__fast',
               isHovered ? 'animate__fadeIn' : 'animate__fadeOut',
             )}
           >
-            <Grid container justify="space-evenly" wrap="nowrap" spacing={1}>
-              {Object.keys(lightHouse).map(key => (
-                <Grid key={key} item>
-                  <DoughnutChart label={key} active={isHovered} value={lightHouse[key]} />
-                </Grid>
+            <div
+              className={clsx(
+                // classes.header,
+                'animate__animated',
+                'animate__faster',
+                isHovered ? 'animate__fadeInDown' : 'animate__fadeOutUp',
+              )}
+            >
+              <Typography variant="h5" gutterBottom>
+                {title}
+              </Typography>
+            </div>
+            <div
+              className={clsx(
+                classes.header,
+                'animate__animated',
+                'animate__faster',
+                isHovered ? 'animate__fadeInDown' : 'animate__fadeOutUp',
+              )}
+            >
+              {tags.map(tag => (
+                <Chip key={tag} color="primary" label={tag} className={classes.tag} />
               ))}
-            </Grid>
+            </div>
+            <div
+              className={clsx(
+                'animate__animated',
+                'animate__faster',
+                isHovered ? 'animate__fadeInUp' : 'animate__fadeOutDown',
+              )}
+            >
+              <Grid container justify="center" wrap="nowrap" spacing={2}>
+                {technologies.map(tech => (
+                  <Grid key={tech} item>
+                    <GatsbyImage alt="logo" image={getImage(filterQueryByName(logosList, tech))} />
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
+
+            <div
+              className={clsx(
+                classes.main,
+                'animate__animated',
+                'animate__fast',
+                isHovered ? 'animate__fadeIn' : 'animate__fadeOut',
+              )}
+            >
+              <Grid container justify="space-evenly" wrap="nowrap" spacing={1}>
+                {Object.keys(lightHouse).map(key => (
+                  <Grid key={key} item>
+                    <DoughnutChart label={key} active={isHovered} value={lightHouse[key]} />
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
           </div>
-        </div>
-      )}
-    </ButtonBase>
+        )}
+      </ButtonBase>
+    </div>
   );
 }
 
