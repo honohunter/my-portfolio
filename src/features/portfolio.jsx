@@ -1,11 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 import SimpleBar from 'simplebar-react';
-import { wrapGrid } from 'animate-css-grid';
 import { useStaticQuery, graphql } from 'gatsby';
-import { makeStyles, Container, Chip, Typography, Grid, ButtonBase } from '@material-ui/core';
+import { makeStyles, Container, Chip, Typography, Grid } from '@material-ui/core';
 
 import Card from '../components/portfolioCard';
+import AnimatedGrid from '../components/animatedGrid';
+
 import { filterQueryByName } from '../utils';
 import portfolioList from '../assets/data/portfolio.json';
 
@@ -50,7 +51,6 @@ const getUniqueElements = element => {
 
 export default function Portfolio() {
   const classes = useStyles();
-  const ref = React.useRef();
   const [tagsFilter, setTagsFilter] = React.useState([]);
 
   // const uniqueTags = getUniqueElements('tags');
@@ -84,19 +84,6 @@ export default function Portfolio() {
     }
     setTagsFilter([...tagsFilter, event.target.textContent]);
   };
-
-  React.useEffect(() => {
-    if (ref) {
-      setTimeout(() => {
-        wrapGrid(ref.current, {
-          duration: 500,
-          onStart: animatingElementList => {
-            console.log('fdf');
-          },
-        });
-      }, 100);
-    }
-  }, [ref]);
 
   return (
     <SimpleBar style={{ height: '100%' }}>
@@ -134,11 +121,14 @@ export default function Portfolio() {
           </div>
 
           <div className={classes.gallery}>
-            <Grid container spacing={3} ref={ref}>
-              {portfolioList.map(
-                (ele, index) =>
-                  (tagsFilter.some(item => ele.technologies.includes(item) || ele.tags.includes(item)) ||
-                    tagsFilter.length === 0) && (
+            <AnimatedGrid spacing={3} justify="center">
+              {portfolioList.map((ele, index) => {
+                const hidden = !(
+                  tagsFilter.some(item => ele.technologies.includes(item) || ele.tags.includes(item)) ||
+                  tagsFilter.length === 0
+                );
+                return (
+                  !hidden && (
                     <Grid item xs="auto" key={ele.title}>
                       <Card
                         img={filterQueryByName(images, ele.title)}
@@ -147,27 +137,13 @@ export default function Portfolio() {
                         lightHouse={ele.lightHouse}
                         technologies={ele.technologies}
                         order={index}
+                        hidden={hidden}
                       />
                     </Grid>
-                  ),
-              )}
-              {/* {portfolioList.map(
-                (ele, index) =>
-                  (tagsFilter.some(item => ele.technologies.includes(item) || ele.tags.includes(item)) ||
-                    tagsFilter.length === 0) && (
-                    <Grid item xs="auto" key={ele.title}>
-                      <Card
-                        img={filterQueryByName(images, ele.title)}
-                        title={ele.title}
-                        tags={ele.tags}
-                        lightHouse={ele.lightHouse}
-                        technologies={ele.technologies}
-                        order={index}
-                      />
-                    </Grid>
-                  ),
-              )} */}
-            </Grid>
+                  )
+                );
+              })}
+            </AnimatedGrid>
           </div>
         </Container>
       </div>

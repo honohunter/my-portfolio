@@ -14,7 +14,7 @@ import useAnimation from '../hooks/useAnimation';
 import { filterQueryByName } from '../utils';
 
 const useStyles = makeStyles(theme => ({
-  root: ({ order }) => ({
+  buttonBase: ({ order }) => ({
     // width: '100%',
     height: 270,
     width: 360,
@@ -147,7 +147,7 @@ const DoughnutChart = ({ active, value, label }) => {
   );
 };
 
-export default function PortfolioCard({ img, title, tags, order, lightHouse, technologies }) {
+export default function PortfolioCard({ img, title, tags, order, lightHouse, technologies, hidden }) {
   const { ref: hoverRef, isHovered, isHoveredOnce } = useHover();
   const { ref: viewRef, inView } = useInView({
     threshold: 0.1,
@@ -189,11 +189,11 @@ export default function PortfolioCard({ img, title, tags, order, lightHouse, tec
     <div ref={ref}>
       <ButtonBase
         className={clsx(
-          classes.root,
+          classes.buttonBase,
           'animate__animated',
           'animate__faster',
           'animate__fadeInUp',
-          !inView && 'animate__fadeOutDown',
+          (!inView || hidden) && 'animate__fadeOutDown',
           'animate__delay-1s',
         )}
       >
