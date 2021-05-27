@@ -1,6 +1,7 @@
 [
     {
         "title": "IntelliTrade",
+        "imageName":"intelliTrade",
         "tags": [
             "Website",
             "Responsive",
@@ -21,6 +22,7 @@
     },
     {
         "title": "Speak2Leads",
+        "imageName":"speak2Leads",
         "tags": [
             "Dashboard",
             "Responsive",
@@ -41,6 +43,7 @@
     },
     {
         "title": "Classdrift",
+        "imageName":"classdrift",
         "tags": [
             "Dashboard",
             "Frontend"
@@ -59,6 +62,7 @@
     },
     {
         "title": "FamGuru",
+        "imageName":"famGuru",
         "tags": [
             "Website",
             "Responsive",
@@ -79,6 +83,7 @@
     },
     {
         "title": "Univertop",
+        "imageName":"famGuru",
         "tags": [
             "Website",
             "Responsive",
@@ -101,6 +106,7 @@
     },
     {
         "title": "Frank Dropshipping",
+        "imageName":"famGuru",
         "tags": [
             "Dashboard",
             "Responsive",
@@ -120,6 +126,7 @@
     },
     {
         "title": "Locker Room",
+        "imageName":"famGuru",
         "tags": [
             "Website",
             "Responsive",
@@ -140,6 +147,7 @@
     },
     {
         "title": "La Grand Ourse",
+        "imageName":"famGuru",
         "tags": [
             "Website",
             "Responsive",
@@ -160,6 +168,7 @@
     },
     {
         "title": "Enhance by Diffbot",
+        "imageName":"famGuru",
         "tags": [
             "Website",
             "Responsive",

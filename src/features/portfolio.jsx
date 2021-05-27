@@ -28,9 +28,9 @@ const useStyles = makeStyles(theme => ({
     width: 100,
   },
   gallery: {
-    paddingTop: theme.spacing(3),
+    paddingTop: theme.spacing(6),
     '& > *': {
-      margin: 'auto',
+      // margin: 'auto',
     },
   },
   chipTag: {
@@ -131,13 +131,13 @@ export default function Portfolio() {
                   !hidden && (
                     <Grid item xs="auto" key={ele.title}>
                       <Card
-                        img={filterQueryByName(images, ele.title)}
+                        img={filterQueryByName(images, ele.imageName)}
+                        link={ele.link}
                         title={ele.title}
                         tags={ele.tags}
                         lightHouse={ele.lightHouse}
                         technologies={ele.technologies}
                         order={index}
-                        hidden={hidden}
                       />
                     </Grid>
                   )

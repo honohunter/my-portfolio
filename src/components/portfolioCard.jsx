@@ -5,7 +5,7 @@ import mergeRefs from 'react-merge-refs';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { useInView } from 'react-intersection-observer';
-import { makeStyles, Typography, ButtonBase, Grid, Chip } from '@material-ui/core';
+import { makeStyles, Typography, ButtonBase, Grid, Chip, Link } from '@material-ui/core';
 import { Doughnut } from 'react-chartjs-2';
 
 import useHover from '../hooks/useHover';
@@ -14,10 +14,14 @@ import useAnimation from '../hooks/useAnimation';
 import { filterQueryByName } from '../utils';
 
 const useStyles = makeStyles(theme => ({
-  buttonBase: ({ order }) => ({
-    // width: '100%',
+  root: {
     height: 270,
-    width: 360,
+    maxWidth: 360,
+  },
+  buttonBase: ({ order }) => ({
+    width: '100%',
+    height: '100%',
+
     backgroundColor: theme.palette.grey[900],
     borderRadius: 5,
     overflow: 'hidden',
@@ -147,7 +151,7 @@ const DoughnutChart = ({ active, value, label }) => {
   );
 };
 
-export default function PortfolioCard({ img, title, tags, order, lightHouse, technologies, hidden }) {
+export default function PortfolioCard({ img, title, tags, order, lightHouse, technologies, link }) {
   const { ref: hoverRef, isHovered, isHoveredOnce } = useHover();
   const { ref: viewRef, inView } = useInView({
     threshold: 0.1,
@@ -186,16 +190,19 @@ export default function PortfolioCard({ img, title, tags, order, lightHouse, tec
   `);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className={classes.root}>
       <ButtonBase
         className={clsx(
           classes.buttonBase,
           'animate__animated',
           'animate__faster',
           'animate__fadeInUp',
-          (!inView || hidden) && 'animate__fadeOutDown',
+          !inView && 'animate__fadeOutDown',
           'animate__delay-1s',
         )}
+        component={Link}
+        target="_blank"
+        href={link}
       >
         {img && <GatsbyImage alt="picture" image={getImage(img)} className={clsx(classes.hoverImage)} />}
         {isHoveredOnce && (
@@ -281,6 +288,7 @@ PortfolioCard.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   img: PropTypes.any,
   title: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string),
   order: PropTypes.number.isRequired,
   technologies: PropTypes.arrayOf(PropTypes.string),

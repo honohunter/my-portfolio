@@ -234,7 +234,7 @@ export default function Index() {
           }
         }
       }
-      profilePic: file(relativePath: { eq: "mypic.jpeg" }) {
+      profilePic: file(relativePath: { eq: "mypic.png" }) {
         childImageSharp {
           gatsbyImageData(formats: WEBP, layout: CONSTRAINED)
         }
@@ -249,9 +249,9 @@ export default function Index() {
       <Particles options={option} className={classes.particles} />
       <div className={clsx(classes.root, 'animate__animated', 'animate__fadeIn', 'animate__delay-1s')}>
         <Container maxWidth="xl" className={classes.container}>
-          {/* <Avatar className={classes.avatar}>
+          <Avatar className={classes.avatar}>
             <GatsbyImage alt="profile picture" image={getImage(profilePic)} />
-          </Avatar> */}
+          </Avatar>
           <Typography variant="h1" align="center" gutterBottom>
             Hello, I&#39;m Alaa Eddine Bouasla
           </Typography>
@@ -266,6 +266,7 @@ export default function Index() {
           </Typography>
           <Button
             component={Link}
+            underline="none"
             href={attachedFile}
             target="_blank"
             variant="outlined"
