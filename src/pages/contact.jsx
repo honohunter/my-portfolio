@@ -6,6 +6,7 @@ import Contact from '../features/contact';
 
 const ContactPage = () => (
   <>
+    <Seo title="Contact" />
     <Contact />
   </>
 );

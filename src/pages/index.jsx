@@ -6,6 +6,7 @@ import Home from '../features/home';
 
 const HomePage = () => (
   <>
+    <Seo title="Home" />
     <Home />
   </>
 );

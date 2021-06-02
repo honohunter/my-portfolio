@@ -6,6 +6,7 @@ import Portfolio from '../features/portfolio';
 
 const PortfolioPage = () => (
   <>
+    <Seo title="Portfolio" />
     <Portfolio />
   </>
 );
