@@ -16,9 +16,10 @@ import useHover from '../hooks/useHover';
 
 const useStyles = makeStyles(theme => ({
   navigationMenu: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
     display: 'flex',
     position: 'fixed',
+
     [theme.breakpoints.up('md')]: {
       width: 180,
       // marginLeft: -180,
@@ -36,6 +37,7 @@ const useStyles = makeStyles(theme => ({
       bottom: 0,
       width: '100%',
       justifyContent: 'center',
+      backgroundColor: theme.palette.background.default,
       '& > *:not(:last-child)': {
         paddingRight: theme.spacing(2),
       },
@@ -124,12 +126,12 @@ export default function NavigationMenu() {
       <EnhancedFab color="primary" label="Home" to="/">
         <HomeIcon />
       </EnhancedFab>
-      <EnhancedFab color="primary" label="About" to="/about">
+      {/* <EnhancedFab color="primary" label="About" to="/about">
         <AccountCircleIcon />
-      </EnhancedFab>
-      <EnhancedFab color="primary" label="Resume" to="/resume">
+      </EnhancedFab> */}
+      {/* <EnhancedFab color="primary" label="Resume" to="/resume">
         <ContactsIcon />
-      </EnhancedFab>
+      </EnhancedFab> */}
       <EnhancedFab color="primary" label="Portfolio" to="/portfolio">
         <WorkIcon />
       </EnhancedFab>
