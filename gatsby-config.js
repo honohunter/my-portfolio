@@ -4,6 +4,7 @@ module.exports = {
     description: `I'm a web application developer, highly experienced in developing websites/web-application using React.js and Node.js also I'm a python programmer and I'm a lover to experiment with new web technologies.`,
     author: `honohunter`,
     image: `/meta.png`,
+    url: `https://honohunter.netlify.app`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
