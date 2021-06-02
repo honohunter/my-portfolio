@@ -83,6 +83,35 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderColor: '#fff',
+      },
+    },
+    MuiInputLabel: {
+      root: {
+        color: '#fff',
+      },
+    },
+    MuiFilledInput: {
+      root: {
+        backgroundColor: '#282c34',
+        '&:hover': {
+          backgroundColor: '#282c34',
+        },
+        '&$focused': {
+          backgroundColor: '#282c34',
+        },
+      },
+      underline: {
+        '&:before': {
+          borderBottom: '1px solid #fff',
+        },
+      },
+    },
+    MuiInputBase: {
+      root: {},
+    },
   },
 });
 

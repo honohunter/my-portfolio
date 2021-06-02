@@ -39,7 +39,7 @@
             "graphQL",
             "material-ui"
         ],
-        "link": "https://6093df017ccffb00079ae66e--speak2leads.netlify.app/me/overview/"
+        "link": "https://s2l-frontend.netlify.app/me/overview/"
     },
     {
         "title": "Classdrift",
@@ -83,7 +83,7 @@
     },
     {
         "title": "Univertop",
-        "imageName":"famGuru",
+        "imageName":"univertop",
         "tags": [
             "Website",
             "Responsive",
@@ -104,47 +104,7 @@
         ],
         "link": "https://univertop.netlify.app/"
     },
-    {
-        "title": "Frank Dropshipping",
-        "imageName":"famGuru",
-        "tags": [
-            "Dashboard",
-            "Responsive",
-            "Frontend"
-        ],
-        "lightHouse": {
-            "Performance": 98,
-            "A11Y": 86,
-            "BP": 93,
-            "SEO": 90
-        },
-        "technologies": [
-            "nextjs",
-            "material-ui"
-        ],
-        "link": "https://frank-dropshipping.netlify.app/overview"
-    },
-    {
-        "title": "Locker Room",
-        "imageName":"famGuru",
-        "tags": [
-            "Website",
-            "Responsive",
-            "Frontend"
-        ],
-        "lightHouse": {
-            "Performance": 93,
-            "A11Y": 93,
-            "BP": 100,
-            "SEO": 90
-        },
-        "technologies": [
-            "gatsby",
-            "graphQL",
-            "material-ui"
-        ],
-        "link": "https://lockerroom.gtsb.io/"
-    },
+
     {
         "title": "La Grand Ourse",
         "imageName":"famGuru",
@@ -185,6 +145,6 @@
             "graphQL",
             "material-ui"
         ],
-        "link": "https://lagrandeoursemaster.gtsb.io/"
+        "link": "https://enhancebydiffbotmaster.gtsb.io/"
     }
 ]

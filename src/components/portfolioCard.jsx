@@ -222,7 +222,7 @@ export default function PortfolioCard({ img, title, tags, order, lightHouse, tec
                 isHovered ? 'animate__fadeInDown' : 'animate__fadeOutUp',
               )}
             >
-              <Typography variant="h5" gutterBottom>
+              <Typography align="center" variant="h5" gutterBottom>
                 {title}
               </Typography>
             </div>
