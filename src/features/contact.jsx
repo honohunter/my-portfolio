@@ -73,15 +73,13 @@ export default function Contact() {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit,
+    onSubmit: async values => {
+      const response = await sendMessage('contact', values);
+      if (response.status === 200) {
+        setSent(true);
+      }
+    },
   });
-
-  const onSubmit = async values => {
-    const response = await sendMessage('contact', values);
-    if (response.status === 200) {
-      setSent(true);
-    }
-  };
 
   return (
     <div className={classes.root}>
