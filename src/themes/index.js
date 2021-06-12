@@ -18,6 +18,7 @@ const theme = createMuiTheme({
     },
     background: {
       default: '#111',
+      paper: '#282c34',
     },
     grey: {
       900: '#282c34',
@@ -111,6 +112,11 @@ const theme = createMuiTheme({
     },
     MuiInputBase: {
       root: {},
+    },
+    MuiBackdrop: {
+      root: {
+        filter: 'blur(2px)',
+      },
     },
   },
 });
